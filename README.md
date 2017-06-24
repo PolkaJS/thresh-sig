@@ -15,6 +15,8 @@
 
 `git remote rm origin`
 
+---
+
 ## ISC License (ISC)
 
 Copyright 2017 <PolkaJS>
