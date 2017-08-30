@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class G {//Group
+class G { //Group
 public:
 
 static void pow2(G &gout, const G &base1, const Zr &exp1, const G &base2, const Zr &exp2);
@@ -102,5 +102,8 @@ private:
     element_pp_t g_pp;
     const Pairing &pairing;
 };
+
+int hash_to_bytes(uint8_t *input_buf, int input_len, uint8_t *output_buf,
+	int hash_len, uint8_t hash_prefix);
 
 #endif

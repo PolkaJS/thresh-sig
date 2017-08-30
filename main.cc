@@ -216,7 +216,11 @@ NAN_METHOD(Encrypt) {
   // get the message and primary verification key
   String::Utf8Value paramM(info[0]->ToString());
   String::Utf8Value paramVK(info[1]->ToString());
-  string m = sha256((string) *paramM);
+  string m;
+  if (paramM.length() == 64)
+    m = (string) *paramM;
+  else
+    m = sha256((string) *paramM);
 
   // setup random value
   Zr r(e, true);

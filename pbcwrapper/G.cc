@@ -3,7 +3,56 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <math.h>
 #include "PBCExceptions.h"
+#include "openssl/objects.h"
+#include "openssl/sha.h"
+
+int hash_to_bytes(uint8_t *input_buf, int input_len, uint8_t *output_buf,
+	int hash_len, uint8_t hash_prefix)
+{
+	SHA256_CTX sha2;
+	int i, new_input_len = input_len + 2; // extra byte for prefix
+	uint8_t first_block = 0;
+	uint8_t new_input[new_input_len+1];
+
+	memset(new_input, 0, new_input_len+1);
+	new_input[0] = first_block; // block number (always 0 by default)
+	new_input[1] = hash_prefix; // set hash prefix
+	memcpy((uint8_t *)(new_input+2), input_buf, input_len); // copy input bytes
+
+	// prepare output buf
+	memset(output_buf, 0, hash_len);
+
+	if (hash_len <= SHA256_DIGEST_LENGTH) {
+		SHA256_Init(&sha2);
+		SHA256_Update(&sha2, new_input, new_input_len);
+		uint8_t md[SHA256_DIGEST_LENGTH+1];
+		SHA256_Final(md, &sha2);
+		memcpy(output_buf, md, hash_len);
+	}
+	else {
+		// apply variable-size hash technique to get desired size
+		// determine block count.
+		int blocks = (int) ceil(((double) hash_len) / SHA256_DIGEST_LENGTH);
+		uint8_t md[SHA256_DIGEST_LENGTH+1];
+		uint8_t md2[(blocks * SHA256_DIGEST_LENGTH)+1];
+		uint8_t *target_buf = md2;
+		for(i = 0; i < blocks; i++) {
+			/* compute digest = SHA-2( i || prefix || input_buf ) || ... || SHA-2( n-1 || prefix || input_buf ) */
+			target_buf += (i * SHA256_DIGEST_LENGTH);
+			new_input[0] = (uint8_t) i;
+			SHA256_Init(&sha2);
+			SHA256_Update(&sha2, new_input, new_input_len);
+			SHA256_Final(md, &sha2);
+			memcpy(target_buf, md, hash_len);
+			memset(md, 0, SHA256_DIGEST_LENGTH);
+		}
+		// copy back to caller
+		memcpy(output_buf, md2, hash_len);
+	}
+	return 1;
+}
 
 void G::pow2(G &gout, const G &base1, const Zr &exp1, const G &base2, const Zr &exp2){
   if(gout.elementPresent && base1.isElementPresent() && base2.isElementPresent() && exp1.isElementPresent() && exp2.isElementPresent()){

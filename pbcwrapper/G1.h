@@ -19,11 +19,12 @@ static G1 pow3(const Pairing &e, const G1 &base1, const Zr &exp1, const G1 &base
   G1(const Pairing &e, bool identity);
 
   //Create an element from import
-  G1(const Pairing &e, const unsigned char *data, unsigned short len,
-	 bool compressed = false, unsigned short base = 0);
+  G1(const Pairing &e, const unsigned char *data,
+    unsigned short len, bool compressed = false,
+    unsigned short base = 0);
 
   //Create an element from hash
-  G1(const Pairing &e, const void *data, unsigned short len);
+  G1(const Pairing &e, string data, unsigned short len);
 
   //Intialize with another element but with different value
   G1(const G1 &h, bool identity=false):G(h,identity){}
