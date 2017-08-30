@@ -1,25 +1,35 @@
 {
-  "name": "@polkajs/skeleton-module",
-  "version": "1.0.4",
-  "description": "When creating new modules, use this skeletal structure",
+  "name": "@polkajs/thresh-sig",
+  "version": "1.0.0",
+  "description": "Threshold signatures using pairing based cryptography and elliptic curves",
   "main": "index.js",
   "scripts": {
     "lint+build+test": "yarn run lint && yarn run build && yarn run test",
     "lint": "echo linting... && eslint ./src/**/*.js && echo 'successfully linted'",
     "build": "echo building... && babel src/ -d lib/ && echo 'successfully built'",
     "prepublish": "yarn run build",
-    "test": "echo running server tests... && tape test/**/*.js && echo 'successfully completed tests'"
+    "test": "echo running server tests... && tape test/**/*.js && echo 'successfully completed tests'",
+    "compile": "node-gyp rebuild",
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PolkaJS/skeleton-module.git"
+    "url": "git+https://github.com/PolkaJS/thresh-sig.git"
   },
   "author": "Craig OConnor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PolkaJS/skeleton-module/issues"
+    "url": "https://github.com/PolkaJS/thresh-sig/issues"
   },
-  "homepage": "https://github.com/PolkaJS/skeleton-module#readme",
+  "keywords": [
+    "threshold",
+    "signature",
+    "cryptography",
+    "pairing",
+    "elliptic",
+    "curve"
+  ],
+  "homepage": "https://github.com/PolkaJS/thresh-sig#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
