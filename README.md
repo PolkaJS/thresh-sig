@@ -10,10 +10,11 @@
 ## About
 
 ### Whitepapers
-[Threshold Signatures](http://www.shoup.net/papers/thsig.pdf)
-[Pairing Based Cryptography](https://crypto.stanford.edu/pbc/)
-[Intro to PBC](https://www.math.uwaterloo.ca/~ajmeneze/publications/pairings.pdf)
-[Intro to ECC](http://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/)
+
+* [Threshold Signatures](http://www.shoup.net/papers/thsig.pdf)
+* [Pairing Based Cryptography](https://crypto.stanford.edu/pbc/)
+* [Intro to * PBC](https://www.math.uwaterloo.ca/~ajmeneze/publications/pairings.pdf)
+* [Intro to ECC](http://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/)
 
 ## Use
 `npm install --save @polkajs/thresh-sig`
@@ -42,7 +43,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ```
 
 **BUILD**
-`npm run compile`
+```
+npm run compile
+```
 
 ---
 
