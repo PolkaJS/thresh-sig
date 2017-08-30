@@ -10,8 +10,6 @@
 
 int hash_to_bytes(uint8_t *input_buf, int input_len, uint8_t *output_buf, int hash_len, uint8_t hash_prefix)
 {
-	// std::ofstream logFile("logfile.txt");
-	// logFile << "input_buf " << input_buf << endl;
 	SHA256_CTX sha2;
 	int i, new_input_len = input_len + 2; // extra byte for prefix
 	uint8_t first_block = 0;
@@ -52,8 +50,6 @@ int hash_to_bytes(uint8_t *input_buf, int input_len, uint8_t *output_buf, int ha
 		// copy back to caller
 		memcpy(output_buf, md2, hash_len);
 	}
-
-	// logFile.close();
 	return 1;
 }
 
