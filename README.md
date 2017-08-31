@@ -13,8 +13,10 @@
 
 * [Threshold Signatures](http://www.shoup.net/papers/thsig.pdf)
 * [Pairing Based Cryptography](https://crypto.stanford.edu/pbc/)
-* [Intro to * PBC](https://www.math.uwaterloo.ca/~ajmeneze/publications/pairings.pdf)
+* [Intro to PBC](https://www.math.uwaterloo.ca/~ajmeneze/publications/pairings.pdf)
 * [Intro to ECC](http://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/)
+[Gap-Diffie-Hellman](https://eprint.iacr.org/2002/118.pdf)
+[Gap-Diffie-Hellman2](http://www.cc.gatech.edu/~aboldyre/papers/b.pdf)
 
 ## Use
 `npm install --save @polkajs/thresh-sig`
