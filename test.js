@@ -1,4 +1,4 @@
-const { Dealer, Encrypt, VerifyCipherText, DecryptShare, VerifyShare, CombineShares } = require('./build/Release/addon'); // native c/c++
+const { Dealer, Encrypt, VerifyCipherText, DecryptShare, VerifyShare, CombineShares } = require('./build/Release/addon.node'); // native c/c++
 
 const str = "TEST", players = 10, k = 5;
 const m = require("crypto").createHash("sha256").update(str).digest().toString("hex");

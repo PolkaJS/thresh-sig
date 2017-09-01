@@ -17,7 +17,7 @@ FILE *sysParamFile = fopen(paramFileName, "r");
 Pairing e(sysParamFile);
 Zr ZERO(e, (long int)0);
 Zr ONE(e, (long int)1);
-G1 g1(e, false);
+G1 g1;
 
 Zr polynomialEvaluation(long int x, long int size, Zr a[]) {
   Zr y(e, (long int) 0);
@@ -268,6 +268,7 @@ NAN_METHOD(Dealer) {
   // grab player count and # of shards needed to successfully decrypt (k)
   int players = (int) info[0]->NumberValue();
   int k = (int) info[1]->NumberValue();
+  g1 = G1(e, false);
 
   // prepare all polynomial secrets. Master ksecret is secrets[0]
   Zr secrets[k];
@@ -305,7 +306,19 @@ NAN_METHOD(Dealer) {
   info.GetReturnValue().Set(obj);
 }
 
+NAN_METHOD(SetG) {
+  if (!info[0]->IsString()) {
+    Nan::ThrowTypeError("argument must be string!");
+    return;
+  }
+  // get G1 value
+  String::Utf8Value paramG(info[0]->ToString());
+  string sG = stringToHex(*paramG);
+  g1 = G1(e, (const unsigned char *)sG.c_str(), sG.length());
+}
+
 NAN_MODULE_INIT(Initialize) {
+  NAN_EXPORT(target, SetG);
   NAN_EXPORT(target, Dealer);
   NAN_EXPORT(target, Encrypt);
   NAN_EXPORT(target, VerifyCipherText);

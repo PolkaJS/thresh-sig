@@ -2,7 +2,7 @@
   "name": "@polkajs/thresh-sig",
   "version": "1.0.0",
   "description": "Threshold signatures using pairing based cryptography and elliptic curves",
-  "main": "index.js",
+  "main": "lib/threshsig.js",
   "scripts": {
     "lint+build+test": "yarn run lint && yarn run build && yarn run test",
     "lint": "echo linting... && eslint ./src/**/*.js && echo 'successfully linted'",
