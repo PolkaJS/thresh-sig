@@ -58,7 +58,7 @@ npm run compile
 
 ## Example
 
-```
+```js
 const Threshsig = require('@polkajs/thresh-sig');
 
 const threshsig = new Threshsig();
@@ -88,7 +88,7 @@ console.log("m === _m", m === _m);
 ## API
 
 ### Types
-```
+```js
 type C = {
   U: string,
   V: string,
