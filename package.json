@@ -1,6 +1,6 @@
 {
   "name": "@polkajs/thresh-sig",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Threshold signatures using pairing based cryptography and elliptic curves",
   "main": "lib/threshsig.js",
   "scripts": {
