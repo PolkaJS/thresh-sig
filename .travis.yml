@@ -10,3 +10,12 @@ node_js:
 
 script:
   - yarn run lint+build+test
+
+before_install:
+  - sudo apt-get install libgmp3-dev bison
+  - sudo apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev
+  - wget https://crypto.stanford.edu/pbc/files/pbc-0.5.14.tar.gz
+  - tar -xvf pbc-0.5.14.tar.gz
+  - pushd pbc-0.5.14 && ./configure && make && sudo make install && popd
+  - export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
