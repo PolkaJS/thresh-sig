@@ -1,5 +1,5 @@
 const test = require('tape');
-const { Dealer, Encrypt, VerifyCipherText, DecryptShare, VerifyShare, CombineShares } = require('./build/Release/addon.node'); // native c/c++
+const { Dealer, Encrypt, VerifyCipherText, DecryptShare, VerifyShare, CombineShares } = require('../build/Release/addon.node'); // native c/c++
 
 test('timing test', function (t) {
     t.plan(1);
