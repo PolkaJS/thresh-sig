@@ -16,5 +16,14 @@ const verifiedShares = shares.map((share, i) => VerifyShare(C, share, dealer.VKs
 console.log("verified Shares", verifiedShares);
 
 // As long as you have at least 5 decrypted shares, you can obtain the original message:
-const _m = CombineShares(C, shares.slice(0, 5));
+const shareMap = {};
+for (let i = 0; i < k; i++) {
+  let n;
+  while (shares[n] == null)
+    n = Math.floor(Math.random() * shares.length);
+  shareMap[n] = shares[n];
+  shares[n] = null;
+}
+console.log("shareMap", shareMap);
+const _m = CombineShares(C, Object.keys(shareMap), Object.values(shareMap));
 console.log("m === _m", m === _m);

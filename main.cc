@@ -79,12 +79,12 @@ string stringToHex(string s) {
   return o;
 }
 
-Zr lagrange(long int j, long int l) {
+Zr lagrange(long int j, int arr[], int l) {
   Zr num(e, (long int)1);
   Zr den(e, (long int)1);
   Zr jj(e, (long int)j);
   for (int i = 0; i < l; i++) {
-    Zr ii(e, (long int)i);
+    Zr ii(e, (long int)arr[i]);
     if (!(ii == jj)) {
       num *= (ZERO - ii - ONE);
       den *= (jj - ii);
@@ -94,7 +94,7 @@ Zr lagrange(long int j, long int l) {
 }
 
 NAN_METHOD(CombineShares) {
-  if (!info[0]->IsObject() && !info[1]->IsArray()) {
+  if (!info[0]->IsObject() && !info[1]->IsArray() && !info[2]->IsArray()) {
     Nan::ThrowTypeError("first argument must be an object, second must be an array!");
     return;
   }
@@ -103,18 +103,23 @@ NAN_METHOD(CombineShares) {
   // grab the parameters:
   Local<Object> c(info[0]->ToObject());
   String::Utf8Value paramV(c->Get(String::NewFromUtf8(isolate, "V")));
-  Local<Array> paramS = Local<Array>::Cast(info[1]);
+  Local<Array> paramK = Local<Array>::Cast(info[1]);
+  Local<Array> paramS = Local<Array>::Cast(info[2]);
   int length = paramS->Length();
+  int keys[length];
+  for (int i = 0; i < length; i++) {
+    keys[i] = paramK->Get(i)->NumberValue();
+  }
 
   String::Utf8Value shareI(paramS->Get(0)->ToString());
   string sS = stringToHex(*shareI);
   G1 g(e, (const unsigned char *)sS.c_str(), sS.length());
-  G1 res = g^lagrange(0, length);
+  G1 res = g^lagrange(keys[0], keys, length);
   for (int i = 1; i < length; i++) {
     String::Utf8Value shareI(paramS->Get(i)->ToString());
     string sS = stringToHex(*shareI);
     g = G1(e, (const unsigned char *)sS.c_str(), sS.length());
-    res *= g^lagrange(i, length);
+    res *= g^lagrange(keys[i], keys, length);
   }
   string hashG = sha256(stringToHex(res.toHexString(true)));
   string r = str_xor(hashG, *paramV);
