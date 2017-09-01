@@ -15,7 +15,7 @@ console.log("decrypted shares", shares);
 const verifiedShares = shares.map((share, i) => VerifyShare(C, share, dealer.VKs[i]));
 console.log("verified Shares", verifiedShares);
 
-// As long as you have at least 5 decrypted shares, you can obtain the original message:
+// As long as you have at least k decrypted shares, you can obtain the original message:
 const shareMap = {};
 for (let i = 0; i < k; i++) {
   let n;
