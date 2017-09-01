@@ -1,8 +1,9 @@
 //@flow
 const {
   CombineShares, Dealer, DecryptShare, Encrypt,
-  SetG, VerifyCipherText, VerifyShare // $FlowFixMe 
+  SetG, VerifyCipherText, VerifyShare // $FlowFixMe
 } = require('../build/Release/addon.node');
+import extend from 'extend';
 
 type C = {
   U: string,
@@ -70,5 +71,9 @@ export default class ThresholdSignature {
   setVerificationKey(i: number, key: string) {
     this.dealer.VKs[i] = key;
     return true;
+  }
+
+  setC(c: C) {
+    return this.c = extend(this.c, c);
   }
 }
